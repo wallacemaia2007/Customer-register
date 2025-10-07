@@ -27,4 +27,9 @@ export class Cadastro {
 
   cliente: Cliente = Cliente.newCliente();
 
+  salvar(){
+    console.log(this.cliente)
+
+  }
+
 }

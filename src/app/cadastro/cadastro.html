@@ -1,6 +1,6 @@
 <div fxLayout="row" fxLayoutAlign="center">
     <div fxLayout="column" fxFlex="900px">
-        <form #clientesFrm="ngForm" class="mt-60">
+        <form #clientesFrm="ngForm" class="mt-60" (ngSubmit)="salvar()">
             <mat-card>
                 <mat-card-header>
                     <mat-card-title>Dados Pessoais</mat-card-title>
@@ -44,7 +44,7 @@
                     </div>
                 </mat-card-content>
                 <mat-card-actions>
-                    <button mat-flat-button="primary">
+                    <button mat-flat-button="primary" type="submit">
                         <mat-icon fontIcon="save"></mat-icon>
                         Salvar
                     </button>
