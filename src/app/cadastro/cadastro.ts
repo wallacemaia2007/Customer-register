@@ -6,6 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
+import { Cliente } from './cliente';
 
 @Component({
   selector: 'app-cadastro',
@@ -22,4 +23,8 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './cadastro.html',
   styleUrls: ['./cadastro.scss']
 })
-export class Cadastro {}
+export class Cadastro {
+
+  cliente: Cliente = Cliente.newCliente();
+
+}
