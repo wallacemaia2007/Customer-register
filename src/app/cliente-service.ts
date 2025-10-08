@@ -14,10 +14,10 @@ export class ClienteService {
   }
 
   salvar(cliente:Cliente){
-    const strorage = this.obterStorage();
-    strorage.push(cliente);
+    const storage = this.obterStorage();
+    storage.push(cliente);
 
-    localStorage.setItem(ClienteService.REPO_CLIENTES, JSON.stringify(Storage));
+    localStorage.setItem(ClienteService.REPO_CLIENTES, JSON.stringify(storage));
 
   }
 
