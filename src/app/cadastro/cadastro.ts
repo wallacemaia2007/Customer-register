@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { Cliente } from './cliente';
+import { ClienteService } from '../cliente-service';
 
 @Component({
   selector: 'app-cadastro',
@@ -27,9 +28,12 @@ export class Cadastro {
 
   cliente: Cliente = Cliente.newCliente();
 
-  salvar(){
-    console.log(this.cliente)
+  constructor(private clienteService:ClienteService){
 
+  }
+
+  salvar(){
+    this.clienteService.salvar(this.cliente);
   }
 
 }
