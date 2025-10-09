@@ -1,5 +1,4 @@
-import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { Injectable } from '@angular/core';
 import { Cliente } from './cadastro/cliente';
 
 @Injectable({
@@ -8,43 +7,32 @@ import { Cliente } from './cadastro/cliente';
 export class ClienteService {
   static REPO_CLIENTES = '_CLIENTES';
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor() {}
 
   salvar(cliente: Cliente) {
-    if (!isPlatformBrowser(this.platformId)) {
-      return; // Não executa no servidor
-    }
-    
     const storage = this.obterStorage();
     storage.push(cliente);
     localStorage.setItem(ClienteService.REPO_CLIENTES, JSON.stringify(storage));
   }
 
-  pesquisarClientes(nomeBusca: string): Cliente[] {
-    if (!isPlatformBrowser(this.platformId)) {
-      return []; // Retorna array vazio no servidor
-    }
-
+  pesquisarClientes(nomeBusca: string) : Cliente[] {
     const clientes = this.obterStorage();
 
-    if (!nomeBusca) {
+    if(!nomeBusca){
       return clientes;
+    }else{
+      nomeBusca = nomeBusca.toLowerCase();
+      return clientes.filter(cliente => cliente.nome?.toLowerCase().indexOf(nomeBusca) !== -1)
     }
-
-    return clientes.filter(cliente => cliente.nome?.indexOf(nomeBusca) !== -1);
   }
 
-  private obterStorage(): Cliente[] {
-    if (!isPlatformBrowser(this.platformId)) {
-      return []; // Retorna array vazio no servidor
-    }
-
+  private obterStorage() : Cliente[] {
     const repositorioClientes = localStorage.getItem(ClienteService.REPO_CLIENTES);
-    if (repositorioClientes) {
+    if(repositorioClientes){
       const clientes: Cliente[] = JSON.parse(repositorioClientes);
       return clientes;
     }
-
+    
     const clientes: Cliente[] = [];
     localStorage.setItem(ClienteService.REPO_CLIENTES, JSON.stringify(clientes));
     return clientes;
