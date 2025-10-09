@@ -21,7 +21,7 @@ import { Router } from '@angular/router';
     FormsModule,
     MatTableModule,
     MatButtonModule,
-    CommonModule
+    CommonModule,
   ],
   templateUrl: './consulta.html',
   styleUrl: './consulta.scss',
@@ -30,10 +30,9 @@ export class Consulta implements OnInit {
   nomeBusca: string = '';
   listaCliente: Cliente[] = [];
   colunasTable: string[] = ['id', 'nome', 'cpf', 'dataNascimento', 'email', 'acoes'];
+  deletando: boolean = false;
 
-  constructor(private clienteService: ClienteService,
-    private router: Router
-  ) {}
+  constructor(private clienteService: ClienteService, private router: Router) {}
 
   ngOnInit() {
     this.listaCliente = this.clienteService.pesquisarClientes('');
@@ -43,7 +42,27 @@ export class Consulta implements OnInit {
     this.listaCliente = this.clienteService.pesquisarClientes(this.nomeBusca);
   }
 
-  preparaEditar(id: string){
-    this.router.navigate(['/cadastro/'], {queryParams: {id} });
+  preparaEditar(id: string) {
+    this.router.navigate(['/cadastro/'], { queryParams: { id } });
+  }
+
+  preparaDeletar(cliente: Cliente) {
+    if (confirm('Tem certeza que deseja deletar o cliente' + cliente.nome + '?')) {
+      this.deletando = true;
+      if (cliente.id) {
+        this.deletar(cliente.id);
+      } else {
+        alert('ID do cliente não encontrado.');
+        this.deletando = false;
+      }
+    } else {
+      this.deletando = false;
+    }
+  }
+
+  deletar(id: string) {
+    this.clienteService.deletar(id);
+    this.listaCliente = this.clienteService.pesquisarClientes('');
+    this.deletando = false;
   }
 }
