@@ -21,7 +21,7 @@ import { Router } from '@angular/router';
     FormsModule,
     MatTableModule,
     MatButtonModule,
-    CommonModule,
+    CommonModule
   ],
   templateUrl: './consulta.html',
   styleUrl: './consulta.scss',
