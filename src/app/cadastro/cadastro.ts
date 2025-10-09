@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { Cliente } from './cliente';
 import { ClienteService } from '../cliente-service';
 import { ActivatedRoute } from '@angular/router';
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { Router } from '@angular/router';
 
 @Component({
@@ -22,7 +23,9 @@ import { Router } from '@angular/router';
     FormsModule,
     MatIconModule,
     MatButtonModule,
+    NgxMaskDirective,
   ],
+  providers: [provideNgxMask()],
   templateUrl: './cadastro.html',
   styleUrls: ['./cadastro.scss'],
 })
@@ -31,7 +34,11 @@ export class Cadastro implements OnInit {
 
   cliente: Cliente = Cliente.newCliente();
 
-  constructor(private clienteService: ClienteService, private route: ActivatedRoute, private router: Router) {}
+  constructor(
+    private clienteService: ClienteService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.route.queryParamMap.subscribe((query) => {
@@ -56,6 +63,5 @@ export class Cadastro implements OnInit {
       this.clienteService.atualizar(this.cliente);
       this.router.navigate(['/consulta']);
     }
-
-}
+  }
 }
