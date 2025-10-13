@@ -77,16 +77,25 @@
                         <mat-icon fontIcon="refresh"></mat-icon>
                         Atualizar
                     </button>
+                    <button mat-flat-button="primary" class="ml-5" (click)="limpar()" type="button">
+                        <mat-icon fontIcon="backspace"></mat-icon>
+                        Limpar
+                    </button>
+                    <button mat-flat-button="primary" class="ml-5" (click)="voltar()">
+                        <mat-icon fontIcon="keyboard_return"></mat-icon>
+                        Voltar
+                    </button>
                     }@else{
                     <button mat-flat-button="primary" type="submit">
                         <mat-icon fontIcon="save"></mat-icon>
                         Salvar
                     </button>
-                    }
                     <button mat-flat-button="primary" class="ml-5">
                         <mat-icon fontIcon="backspace"></mat-icon>
                         Limpar
                     </button>
+                    }
+
                 </mat-card-actions>
             </mat-card>
         </form>

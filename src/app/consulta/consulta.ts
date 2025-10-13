@@ -68,6 +68,7 @@ export class Consulta implements OnInit {
     this.deletando = false;
     this.mostrarMensagem('Cliente deletado com sucesso!');
   }
+  
 
     mostrarMensagem(mensagem: string) {
     this.snack.open(mensagem, 'OK', { duration: 3000 });

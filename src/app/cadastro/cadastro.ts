@@ -103,6 +103,19 @@ export class Cadastro implements OnInit {
     }
   }
 
+  voltar(){
+    this.router.navigate(['/consulta/']);
+  }
+
+  limpar(){
+    this.cliente.nome = '';
+    this.cliente.email = '';
+    this.cliente.cpf = '';
+    this.cliente.dataNascimento = '';
+    this.cliente.estado = '';
+    this.cliente.municipio = '';
+  }
+
   mostrarMensagem(mensagem: string) {
     this.snack.open(mensagem, 'OK', { duration: 3000 });
   }
