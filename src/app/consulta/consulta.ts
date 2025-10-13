@@ -30,7 +30,7 @@ import { Router } from '@angular/router';
 export class Consulta implements OnInit {
   nomeBusca: string = '';
   listaCliente: Cliente[] = [];
-  colunasTable: string[] = ['id', 'nome', 'cpf', 'dataNascimento', 'email', 'acoes'];
+  colunasTable: string[] = ['id', 'nome', 'cpf', 'dataNascimento', 'email','estado', 'municipio', 'acoes'];
   deletando: boolean = false;
   snack: MatSnackBar = inject(MatSnackBar);
 
@@ -49,7 +49,7 @@ export class Consulta implements OnInit {
   }
 
   preparaDeletar(cliente: Cliente) {
-    if (confirm('Tem certeza que deseja deletar o cliente' + cliente.nome + '?')) {
+    if (confirm('Tem certeza que deseja deletar o cliente ' + cliente.nome + '?')) {
       this.deletando = true;
       if (cliente.id) {
         this.deletar(cliente.id);
