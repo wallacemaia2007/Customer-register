@@ -46,10 +46,26 @@
                         <div fxLayout="column" fxFlex="400px">
                             <mat-form-field class="full-width">
                                 <mat-label>UF: *</mat-label>
-                                <mat-select>
-                                    <mat-option *ngFor="let estado of estados" [value]="estado.sigla">
+                                <mat-select (selectionChange)="carregarMunicipios($event)">
+                                    @for (estado of estados; track $index) {
+                                    <mat-option [value]="estado.sigla">
                                         {{ estado.sigla}} - {{ estado.nome}}
                                     </mat-option>
+                                    }
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div fxLayout="row" fxLayoutAling="start" fxLayoutGap="16px">
+                        <div fxLayout="column" fxFlex="400px">
+                            <mat-form-field class="full-width">
+                                <mat-label>Municípos: *</mat-label>
+                                <mat-select>
+                                    @for (m of municipios; track $index) {
+                                    <mat-option [value]="m.nome">
+                                        {{ m.nome}}
+                                    </mat-option>
+                                    }
                                 </mat-select>
                             </mat-form-field>
                         </div>

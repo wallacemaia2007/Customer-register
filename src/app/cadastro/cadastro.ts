@@ -7,14 +7,14 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatSelectModule } from '@angular/material/select';
+import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { Cliente } from './cliente';
 import { ClienteService } from '../cliente-service';
 import { ActivatedRoute } from '@angular/router';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { Router } from '@angular/router';
 import { BrasilapiService } from '../brasilapi-service';
-import { Estado } from '../brasilapi.models';
+import { Estado, Municipio } from '../brasilapi.models';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -31,7 +31,7 @@ import { CommonModule } from '@angular/common';
     NgxMaskDirective,
     MatSelectModule,
     CommonModule,
-],
+  ],
   providers: [provideNgxMask()],
   templateUrl: './cadastro.html',
   styleUrls: ['./cadastro.scss'],
@@ -41,6 +41,7 @@ export class Cadastro implements OnInit {
   cliente: Cliente = Cliente.newCliente();
   snack: MatSnackBar = inject(MatSnackBar);
   estados: Estado[] = [];
+  municipios: Municipio[] = [];
 
   constructor(
     private clienteService: ClienteService,
@@ -66,14 +67,23 @@ export class Cadastro implements OnInit {
   }
 
   carregarEstados() {
-    this.brasilapiService.listarCep().subscribe({
+    this.brasilapiService.listarEstados().subscribe({
       next: (listaEstados) => {
-        console.log(listaEstados);
         this.estados = listaEstados;
       },
       error: (erro) => {
         console.error('Deu erro ' + erro);
       },
+    });
+  }
+
+  carregarMunicipios(event: MatSelectChange) {
+    const uf = event.value;
+    this.brasilapiService.listarMunicipios(uf).subscribe({
+      next: (listaMunicipíos) => {
+        this.municipios = listaMunicipíos;
+      },
+      error: (erro) => console.error('Deu erro ' + erro),
     });
   }
 
