@@ -7,11 +7,15 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSelectModule } from '@angular/material/select';
 import { Cliente } from './cliente';
 import { ClienteService } from '../cliente-service';
 import { ActivatedRoute } from '@angular/router';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { Router } from '@angular/router';
+import { BrasilapiService } from '../brasilapi-service';
+import { Estado } from '../brasilapi.models';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-cadastro',
@@ -25,8 +29,9 @@ import { Router } from '@angular/router';
     MatIconModule,
     MatButtonModule,
     NgxMaskDirective,
-    
-  ],
+    MatSelectModule,
+    CommonModule,
+],
   providers: [provideNgxMask()],
   templateUrl: './cadastro.html',
   styleUrls: ['./cadastro.scss'],
@@ -35,9 +40,11 @@ export class Cadastro implements OnInit {
   atualizando: boolean = false;
   cliente: Cliente = Cliente.newCliente();
   snack: MatSnackBar = inject(MatSnackBar);
+  estados: Estado[] = [];
 
   constructor(
     private clienteService: ClienteService,
+    private brasilapiService: BrasilapiService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
@@ -55,6 +62,19 @@ export class Cadastro implements OnInit {
         }
       }
     });
+    this.carregarEstados();
+  }
+
+  carregarEstados() {
+    this.brasilapiService.listarCep().subscribe({
+      next: (listaEstados) => {
+        console.log(listaEstados);
+        this.estados = listaEstados;
+      },
+      error: (erro) => {
+        console.error('Deu erro ' + erro);
+      },
+    });
   }
 
   salvar() {
@@ -69,8 +89,7 @@ export class Cadastro implements OnInit {
     }
   }
 
-
   mostrarMensagem(mensagem: string) {
     this.snack.open(mensagem, 'OK', { duration: 3000 });
-}
+  }
 }
