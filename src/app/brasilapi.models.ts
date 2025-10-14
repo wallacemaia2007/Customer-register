@@ -1,17 +1,17 @@
 export interface Cep {
   cep: string;
-  state: string;
-  city: string;
-  neighborhood: string;
-  street: string;
-  service: string;
+  estado: string;
+  cidade: string;
+  bairro: string;
+  rua: string;
+  complemento: string;
 }
 
 export interface Estado {
   nome: string;
   sigla: string;
 }
-export interface Municipio {
+export interface Cidade {
   nome: string;
   codigo_ibge: string;
 }

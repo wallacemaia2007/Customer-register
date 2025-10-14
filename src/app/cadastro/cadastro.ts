@@ -14,7 +14,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { Router } from '@angular/router';
 import { BrasilapiService } from '../brasilapi-service';
-import { Estado, Municipio } from '../brasilapi.models';
+import { Estado, Cidade } from '../brasilapi.models';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -41,7 +41,7 @@ export class Cadastro implements OnInit {
   cliente: Cliente = Cliente.newCliente();
   snack: MatSnackBar = inject(MatSnackBar);
   estados: Estado[] = [];
-  municipios: Municipio[] = [];
+  cidades: Cidade[] = [];
 
   constructor(
     private clienteService: ClienteService,
@@ -83,9 +83,28 @@ export class Cadastro implements OnInit {
 
   carregarMunicipios(event: MatSelectChange) {
     const uf = event.value;
-    this.brasilapiService.listarMunicipios(uf).subscribe({
-      next: (listaMunicipíos) => {
-        this.municipios = listaMunicipíos;
+    this.brasilapiService.listarCidades(uf).subscribe({
+      next: (listaCidades) => {
+        this.cidades = listaCidades;
+      },
+      error: (erro) => console.error('Deu erro ' + erro),
+    });
+  }
+
+  consultaCep(event: MatSelectChange) {
+    const cep = event.value;
+    this.brasilapiService.informacoesCep(cep).subscribe({
+      next: (infoCep) => {
+        this.cliente.cep = infoCep.cep;
+        this.cliente.estado = infoCep.estado;
+        this.cliente.cidade = infoCep.cidade;
+        this.cliente.bairro = infoCep.bairro;
+        this.cliente.rua = infoCep.rua;
+        this.cliente.complemento = infoCep.complemento;
+        if (this.cliente.estado) {
+          const event = { value: this.cliente.estado };
+          this.carregarMunicipios(event as MatSelectChange);
+        }
       },
       error: (erro) => console.error('Deu erro ' + erro),
     });
@@ -113,7 +132,7 @@ export class Cadastro implements OnInit {
     this.cliente.cpf = '';
     this.cliente.dataNascimento = '';
     this.cliente.estado = '';
-    this.cliente.municipio = '';
+    this.cliente.cidade = '';
   }
 
   mostrarMensagem(mensagem: string) {
