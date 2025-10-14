@@ -4,7 +4,8 @@ import { Consulta } from './consulta/consulta';
 import { Home } from './home/home';
 
 export const routes: Routes = [
-    { path: 'cadastro', component: Cadastro},
-    { path: 'consulta', component: Consulta},
-    { path: 'home', component: Home},
+  { path: 'cadastro', component: Cadastro },
+  { path: 'consulta', component: Consulta },
+  { path: 'home', component: Home },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
 ];
