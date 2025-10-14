@@ -46,9 +46,8 @@
                         <div fxLayout="column" fxFlex="400px">
                             <mat-form-field class="full-width">
                                 <mat-label>CEP: *</mat-label>
-                                <input type="text" [(ngModel)]="cliente.cep" mask="00000-000"
-                                    (ngModelChange)="consultaCep($event)" name="cep" placeholder="Digite seu CEP"
-                                    matInput>
+                                <input type="text" [(ngModel)]="cliente.cep" mask="00000-000" name="cep"
+                                    placeholder="Digite seu CEP" matInput (ngModelChange)="consultaCep($event)">
                             </mat-form-field>
                         </div>
                     </div>
@@ -69,7 +68,7 @@
                     <div fxLayout="row" fxLayoutAling="start" fxLayoutGap="16px">
                         <div fxLayout="column" fxFlex="400px">
                             <mat-form-field class="full-width">
-                                <mat-label>Municípos: *</mat-label>
+                                <mat-label>Cidade: *</mat-label>
                                 <mat-select [(value)]="cliente.cidade">
                                     @for (c of cidades; track $index) {
                                     <mat-option [value]="c.nome">
@@ -84,17 +83,17 @@
                         <div fxLayout="column" fxFlex="400px">
                             <mat-form-field class="full-width">
                                 <mat-label>Bairro: *</mat-label>
-                                <input type="text" [(ngModel)]="cliente.bairro" 
-                                    name="bairro" placeholder="Digite seu bairro" matInput>
-                                </mat-form-field>
+                                <input type="text" [(ngModel)]="cliente.bairro" name="bairro"
+                                    placeholder="Digite seu bairro" matInput>
+                            </mat-form-field>
                         </div>
                     </div>
                     <div fxLayout="row" fxLayoutAling="start" fxLayoutGap="16px">
                         <div fxLayout="column" fxFlex="400px">
                             <mat-form-field class="full-width">
                                 <mat-label>Rua: *</mat-label>
-                                <input type="text" [(ngModel)]="cliente.rua" 
-                                name="rua" placeholder="Digite sua Rua" matInput>
+                                <input type="text" [(ngModel)]="cliente.rua" name="rua" placeholder="Digite sua Rua"
+                                    matInput>
                             </mat-form-field>
                         </div>
                     </div>
@@ -102,8 +101,8 @@
                         <div fxLayout="column" fxFlex="400px">
                             <mat-form-field class="full-width">
                                 <mat-label>Complemento: </mat-label>
-                                <input type="text" [(ngModel)]="cliente.complemento"
-                                    name="complemento" placeholder="Complemento" matInput>
+                                <input type="text" [(ngModel)]="cliente.complemento" name="complemento"
+                                    placeholder="Complemento" matInput>
                             </mat-form-field>
                         </div>
                     </div>
@@ -127,7 +126,7 @@
                         <mat-icon fontIcon="save"></mat-icon>
                         Salvar
                     </button>
-                    <button mat-flat-button="primary" class="ml-5">
+                    <button mat-flat-button="primary" class="ml-5" (click)="limpar()" type="button">
                         <mat-icon fontIcon="backspace"></mat-icon>
                         Limpar
                     </button>

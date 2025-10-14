@@ -76,7 +76,8 @@ export class Cadastro implements OnInit {
         this.estados = listaEstados;
       },
       error: (erro) => {
-        console.error('Deu erro ' + erro);
+        console.error('Erro ao carregar estados: ' + erro);
+        this.mostrarMensagem('Erro ao carregar estados');
       },
     });
   }
@@ -87,26 +88,53 @@ export class Cadastro implements OnInit {
       next: (listaCidades) => {
         this.cidades = listaCidades;
       },
-      error: (erro) => console.error('Deu erro ' + erro),
+      error: (erro) => {
+        console.error('Erro ao carregar cidades: ' + erro);
+        this.mostrarMensagem('Erro ao carregar cidades');
+      },
     });
   }
+  consultaCep(cep: string) {
+    const cepLimpo = cep?.replace(/\D/g, '');
 
-  consultaCep(event: MatSelectChange) {
-    const cep = event.value;
-    this.brasilapiService.informacoesCep(cep).subscribe({
+    if (!cepLimpo || cepLimpo.length !== 8) {
+      return;
+    }
+
+    this.brasilapiService.informacoesCep(cepLimpo).subscribe({
       next: (infoCep) => {
-        this.cliente.cep = infoCep.cep;
-        this.cliente.estado = infoCep.estado;
-        this.cliente.cidade = infoCep.cidade;
-        this.cliente.bairro = infoCep.bairro;
-        this.cliente.rua = infoCep.rua;
-        this.cliente.complemento = infoCep.complemento;
+        this.cliente.estado = infoCep.state;
+        this.cliente.bairro = infoCep.neighborhood;
+        this.cliente.rua = infoCep.street;
+
         if (this.cliente.estado) {
-          const event = { value: this.cliente.estado };
-          this.carregarMunicipios(event as MatSelectChange);
+          this.brasilapiService.listarCidades(this.cliente.estado).subscribe({
+            next: (listaCidades) => {
+              this.cidades = listaCidades;
+
+              // 🔧 Espera a lista carregar e só então define a cidade
+              const cidadeEncontrada = this.cidades.find(
+                (c) => c.nome.toLowerCase() === infoCep.city.toLowerCase()
+              );
+
+              if (cidadeEncontrada) {
+                // Aguarda um ciclo de detecção de mudanças para o select reconhecer o valor
+                setTimeout(() => {
+                  this.cliente.cidade = cidadeEncontrada.nome;
+                });
+              }
+            },
+            error: (erro) => {
+              console.error('Erro ao carregar cidades: ' + erro);
+              this.mostrarMensagem('Erro ao carregar cidades');
+            },
+          });
         }
       },
-      error: (erro) => console.error('Deu erro ' + erro),
+      error: (erro) => {
+        console.error('Erro ao consultar CEP: ' + erro);
+        this.mostrarMensagem('CEP não encontrado ou inválido');
+      },
     });
   }
 
@@ -122,17 +150,22 @@ export class Cadastro implements OnInit {
     }
   }
 
-  voltar(){
+  voltar() {
     this.router.navigate(['/consulta/']);
   }
 
-  limpar(){
+  limpar() {
     this.cliente.nome = '';
     this.cliente.email = '';
     this.cliente.cpf = '';
     this.cliente.dataNascimento = '';
+    this.cliente.cep = '';
     this.cliente.estado = '';
     this.cliente.cidade = '';
+    this.cliente.bairro = '';
+    this.cliente.rua = '';
+    this.cliente.complemento = '';
+    this.cidades = [];
   }
 
   mostrarMensagem(mensagem: string) {
