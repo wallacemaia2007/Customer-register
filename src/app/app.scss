@@ -3,11 +3,17 @@
 }
 
 .toolbar {
-  background-color: rgb(255, 146, 146);
-  color: #fff;
+  background-color: #333;
+  color: white;
 }
 a{
   text-decoration: none;
-  color: #fff;
+  color: white;
   padding: 15px;
 }
+
+button.mat-button {
+  background-color: #ff5252;
+  color: white;
+}
+
