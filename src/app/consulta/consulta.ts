@@ -30,7 +30,7 @@ import { Router } from '@angular/router';
 export class Consulta implements OnInit {
   nomeBusca: string = '';
   listaCliente: Cliente[] = [];
-  colunasTable: string[] = ['id', 'nome', 'cpf', 'dataNascimento', 'email','estado', 'municipio', 'acoes'];
+  colunasTable: string[] = ['id', 'nome', 'cpf', 'dataNascimento', 'email','cep', 'acoes'];
   deletando: boolean = false;
   snack: MatSnackBar = inject(MatSnackBar);
 
@@ -73,4 +73,9 @@ export class Consulta implements OnInit {
     mostrarMensagem(mensagem: string) {
     this.snack.open(mensagem, 'OK', { duration: 3000 });
 }
+
+informacoes(cliente: Cliente) {
+  this.router.navigate(['/informacoes/'], { queryParams: { id: cliente.id } });
+  
+  }
 }
