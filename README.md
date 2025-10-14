@@ -2,9 +2,12 @@
 
 Sistema web desenvolvido em Angular para gerenciamento de cadastro de clientes com integração à BrasilAPI para dados de localização.
 
+
+
 ## 🚀 Tecnologias Utilizadas
 
 ### Frontend
+
 - **Angular 19+** - Framework principal
 - **TypeScript** - Linguagem de programação
 - **Angular Material** - Biblioteca de componentes UI
@@ -12,6 +15,7 @@ Sistema web desenvolvido em Angular para gerenciamento de cadastro de clientes c
 - **RxJS** - Programação reativa
 
 ### Funcionalidades Técnicas
+
 - **SSR (Server-Side Rendering)** - Renderização no servidor com Angular SSR
 - **Standalone Components** - Arquitetura moderna do Angular
 - **Reactive Forms** - Template-driven forms com two-way binding
@@ -20,6 +24,7 @@ Sistema web desenvolvido em Angular para gerenciamento de cadastro de clientes c
 - **HTTP Client** - Requisições para APIs externas
 
 ### APIs e Integrações
+
 - **BrasilAPI** - Integração para dados de estados e municípios brasileiros
 - **UUID (v4)** - Geração de identificadores únicos
 - **ngx-mask** - Máscaras para CPF e data de nascimento
@@ -49,6 +54,7 @@ src/app/
 ## 🎯 Competências Demonstradas
 
 ### Angular
+
 - Componentes standalone
 - Services com injeção de dependência
 - Reactive programming com Observables
@@ -59,18 +65,21 @@ src/app/
 - Query parameters
 
 ### TypeScript
+
 - Tipagem estática
 - Interfaces e classes
 - Métodos estáticos
 - Optional chaining
 
 ### Arquitetura
+
 - Separação de responsabilidades (Components, Services, Models)
 - Organização modular do código
 - Padrão de Service para lógica de negócio
 - Componentização reutilizável
 
 ### UX/UI
+
 - Design responsivo
 - Feedback visual (Snackbar)
 - Validação de formulários
@@ -98,6 +107,36 @@ npm run serve:ssr:customer-register
 - **Home** (`/home`) - Página inicial com apresentação do sistema
 - **Cadastro** (`/cadastro`) - Formulário de cadastro/edição de clientes
 - **Consulta** (`/consulta`) - Listagem e busca de clientes
+
+---
+
+## 📸 Screenshots
+
+### 🏠 Página Inicial
+
+<div >
+
+<div align="center">
+  <img src="./assets/home.jpg" alt="Página Inicial" width="800px"/>
+</div>
+
+---
+
+### 📝 Formulário de Cadastro
+
+<div align="center">
+  <img src="./assets/cadastro.jpg" alt="Formulário de Cadastro" width="800px"/>
+</div>
+
+---
+
+### 🔍 Consulta de Clientes
+
+<div align="center">
+  <img src="./assets/consulta.jpg" alt="Consulta de Clientes" width="800px"/>
+</div>
+</div>
+
 
 ## 👨‍💻 Autor
 
