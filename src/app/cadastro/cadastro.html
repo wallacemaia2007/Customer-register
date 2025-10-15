@@ -1,6 +1,6 @@
 <div fxLayout="row" fxLayoutAlign="center">
     <div fxLayout="column" fxFlex="900px">
-        <form #clientesFrm="ngForm" class="mt-60" (ngSubmit)="salvar()">
+        <form #clientesFrm="ngForm" class="mt-60" (ngSubmit)="salvar(clientesFrm)">
             <mat-card>
                 <mat-card-header>
                     <mat-card-title>Dados Pessoais</mat-card-title>
@@ -10,93 +10,155 @@
                         <div fxLayout="column" fxFlex="800px">
                             <mat-form-field class="full-width">
                                 <mat-label>Nome: *</mat-label>
-                                <input type="text" [(ngModel)]="cliente.nome" name="nome" placeholder="Ex: Wallace Maia"
-                                    matInput>
+                                <input type="text" [(ngModel)]="cliente.nome" name="nome" #nomeInput="ngModel" required
+                                    placeholder="Ex: Wallace Maia" matInput>
+                                @if(nomeInput.invalid && nomeInput.touched) {
+                                <mat-error>
+                                    Nome é obrigatório
+                                </mat-error>
+                                }
                             </mat-form-field>
                         </div>
                     </div>
+
                     <div fxLayout="row" fxLayoutAling="start" fxLayoutGap="16px">
                         <div fxLayout="column" fxFlex="800px">
                             <mat-form-field class="full-width">
                                 <mat-label>Email: *</mat-label>
-                                <input type="email" [(ngModel)]="cliente.email" name="email"
-                                    placeholder="Ex: wallacemaia2007@gmail.com" matInput>
+                                <input type="email" [(ngModel)]="cliente.email" name="email" #emailInput="ngModel"
+                                    required email placeholder="Ex: wallacemaia2007@gmail.com" matInput>
+                                @if(emailInput.invalid && emailInput.touched) {
+                                <mat-error>
+                                    @if(emailInput.errors?.['required']) {
+                                    Email é obrigatório
+                                    }
+                                    @if(emailInput.errors?.['email']) {
+                                    Email inválido
+                                    }
+                                </mat-error>
+                                }
                             </mat-form-field>
                         </div>
                     </div>
+
                     <div fxLayout="row" fxLayoutAling="start" fxLayoutGap="16px">
                         <div fxLayout="column" fxFlex="400px">
                             <mat-form-field class="full-width">
                                 <mat-label>CPF: *</mat-label>
-                                <input type="text" [(ngModel)]="cliente.cpf" name="cpf" mask="000.000.000-00"
-                                    placeholder="Digite seu CPF" matInput>
+                                <input type="text" [(ngModel)]="cliente.cpf" name="cpf" #cpfInput="ngModel" required
+                                    mask="000.000.000-00" placeholder="Digite seu CPF" matInput>
+                                @if(cpfInput.invalid && cpfInput.touched) {
+                                <mat-error>
+                                    CPF é obrigatório
+                                </mat-error>
+                                }
                             </mat-form-field>
                         </div>
                     </div>
+
                     <div fxLayout="row" fxLayoutAling="start" fxLayoutGap="16px">
                         <div fxLayout="column" fxFlex="400px">
                             <mat-form-field class="full-width">
                                 <mat-label>Data de nascimento: *</mat-label>
                                 <input type="text" [(ngModel)]="cliente.dataNascimento" mask="00/00/0000"
-                                    name="dataNascimento" placeholder="Digite sua data de nascimento" matInput>
+                                    name="dataNascimento" #dataInput="ngModel" required
+                                    placeholder="Digite sua data de nascimento" matInput>
+                                @if(dataInput.invalid && dataInput.touched) {
+                                <mat-error>
+                                    Data de nascimento é obrigatória
+                                </mat-error>
+                                }
                             </mat-form-field>
                         </div>
                     </div>
+
                     <div fxLayout="row" fxLayoutAling="start" fxLayoutGap="16px">
                         <div fxLayout="column" fxFlex="400px">
                             <mat-form-field class="full-width">
                                 <mat-label>CEP: *</mat-label>
                                 <input type="text" [(ngModel)]="cliente.cep" mask="00000-000" name="cep"
-                                    placeholder="Digite seu CEP" matInput (ngModelChange)="consultaCep($event)">
+                                    #cepInput="ngModel" required placeholder="Digite seu CEP" matInput
+                                    (ngModelChange)="consultaCep($event)">
+                                @if(cepInput.invalid && cepInput.touched) {
+                                <mat-error>
+                                    CEP é obrigatório
+                                </mat-error>
+                                }
                             </mat-form-field>
                         </div>
                     </div>
+
                     <div fxLayout="row" fxLayoutAling="start" fxLayoutGap="16px">
                         <div fxLayout="column" fxFlex="400px">
                             <mat-form-field class="full-width">
                                 <mat-label>UF: *</mat-label>
-                                <mat-select [(value)]="cliente.estado" (selectionChange)="carregarMunicipios($event)">
+                                <mat-select [(ngModel)]="cliente.estado" name="estado" #estadoInput="ngModel" required
+                                    (selectionChange)="carregarMunicipios($event)">
                                     @for (estado of estados; track $index) {
                                     <mat-option [value]="estado.sigla">
                                         {{ estado.sigla}} - {{ estado.nome}}
                                     </mat-option>
                                     }
                                 </mat-select>
+                                @if(estadoInput.invalid && estadoInput.touched) {
+                                <mat-error>
+                                    Estado é obrigatório
+                                </mat-error>
+                                }
                             </mat-form-field>
                         </div>
                     </div>
+
                     <div fxLayout="row" fxLayoutAling="start" fxLayoutGap="16px">
                         <div fxLayout="column" fxFlex="400px">
                             <mat-form-field class="full-width">
                                 <mat-label>Cidade: *</mat-label>
-                                <mat-select [(value)]="cliente.cidade">
+                                <mat-select [(ngModel)]="cliente.cidade" name="cidade" #cidadeInput="ngModel" required>
                                     @for (c of cidades; track $index) {
                                     <mat-option [value]="c.nome">
                                         {{ c.nome}}
                                     </mat-option>
                                     }
                                 </mat-select>
+                                @if(cidadeInput.invalid && cidadeInput.touched) {
+                                <mat-error>
+                                    Cidade é obrigatória
+                                </mat-error>
+                                }
                             </mat-form-field>
                         </div>
                     </div>
+
                     <div fxLayout="row" fxLayoutAling="start" fxLayoutGap="16px">
                         <div fxLayout="column" fxFlex="400px">
                             <mat-form-field class="full-width">
                                 <mat-label>Bairro: *</mat-label>
-                                <input type="text" [(ngModel)]="cliente.bairro" name="bairro"
-                                    placeholder="Digite seu bairro" matInput>
+                                <input type="text" [(ngModel)]="cliente.bairro" name="bairro" #bairroInput="ngModel"
+                                    required placeholder="Digite seu bairro" matInput>
+                                @if(bairroInput.invalid && bairroInput.touched) {
+                                <mat-error>
+                                    Bairro é obrigatório
+                                </mat-error>
+                                }
                             </mat-form-field>
                         </div>
                     </div>
+
                     <div fxLayout="row" fxLayoutAling="start" fxLayoutGap="16px">
                         <div fxLayout="column" fxFlex="400px">
                             <mat-form-field class="full-width">
                                 <mat-label>Rua: *</mat-label>
-                                <input type="text" [(ngModel)]="cliente.rua" name="rua" placeholder="Digite sua Rua"
-                                    matInput>
+                                <input type="text" [(ngModel)]="cliente.rua" name="rua" #ruaInput="ngModel" required
+                                    placeholder="Digite sua Rua" matInput>
+                                @if(ruaInput.invalid && ruaInput.touched) {
+                                <mat-error>
+                                    Rua é obrigatória
+                                </mat-error>
+                                }
                             </mat-form-field>
                         </div>
                     </div>
+
                     <div fxLayout="row" fxLayoutAling="start" fxLayoutGap="16px">
                         <div fxLayout="column" fxFlex="400px">
                             <mat-form-field class="full-width">
@@ -107,9 +169,10 @@
                         </div>
                     </div>
                 </mat-card-content>
+
                 <mat-card-actions>
                     @if(atualizando) {
-                    <button mat-flat-button="primary" class="ml-5" type="submit">
+                    <button mat-flat-button="primary" class="ml-5" type="submit" [disabled]="!clientesFrm.valid">
                         <mat-icon fontIcon="refresh"></mat-icon>
                         Atualizar
                     </button>
@@ -121,8 +184,8 @@
                         <mat-icon fontIcon="keyboard_return"></mat-icon>
                         Voltar
                     </button>
-                    }@else{
-                    <button mat-flat-button="primary" type="submit">
+                    } @else {
+                    <button mat-flat-button="primary" type="submit" [disabled]="!clientesFrm.valid">
                         <mat-icon fontIcon="save"></mat-icon>
                         Salvar
                     </button>
@@ -131,7 +194,6 @@
                         Limpar
                     </button>
                     }
-
                 </mat-card-actions>
             </mat-card>
         </form>

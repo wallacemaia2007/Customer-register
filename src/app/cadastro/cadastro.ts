@@ -4,7 +4,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
@@ -111,14 +111,11 @@ export class Cadastro implements OnInit {
           this.brasilapiService.listarCidades(this.cliente.estado).subscribe({
             next: (listaCidades) => {
               this.cidades = listaCidades;
-
-              // 🔧 Espera a lista carregar e só então define a cidade
               const cidadeEncontrada = this.cidades.find(
                 (c) => c.nome.toLowerCase() === infoCep.city.toLowerCase()
               );
 
               if (cidadeEncontrada) {
-                // Aguarda um ciclo de detecção de mudanças para o select reconhecer o valor
                 setTimeout(() => {
                   this.cliente.cidade = cidadeEncontrada.nome;
                 });
@@ -138,10 +135,11 @@ export class Cadastro implements OnInit {
     });
   }
 
-  salvar() {
+  salvar(clientesFrm: NgForm) {
     if (!this.atualizando) {
       this.clienteService.salvar(this.cliente);
       this.cliente = Cliente.newCliente();
+      this.router.navigate(['/consulta']);
       this.mostrarMensagem('Cliente cadastrado com sucesso!');
     } else {
       this.clienteService.atualizar(this.cliente);
