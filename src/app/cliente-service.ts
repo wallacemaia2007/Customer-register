@@ -43,6 +43,11 @@ export class ClienteService {
     return clientes.find((cliente) => cliente.id === id);
   }
 
+  buscarClientePorEmail(email: string): Cliente | undefined {
+    const clientes = this.obterStorage();
+    return clientes.find((cliente) => cliente.email?.toLowerCase() === email.toLowerCase());
+  }
+
   atualizar(cliente: Cliente) {
     const clientes = this.obterStorage();
     clientes.forEach((c) => {

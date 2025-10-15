@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, inject } from '@angular/core';
+import { Component, OnInit, inject, ViewChild } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -37,6 +37,7 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./cadastro.scss'],
 })
 export class Cadastro implements OnInit {
+  @ViewChild('clientesFrm') clientesFrm!: NgForm;
   atualizando: boolean = false;
   cliente: Cliente = Cliente.newCliente();
   snack: MatSnackBar = inject(MatSnackBar);
@@ -135,12 +136,30 @@ export class Cadastro implements OnInit {
     });
   }
 
-  salvar(clientesFrm: NgForm) {
+  salvar() {
+    if (this.clientesFrm.invalid) {
+      Object.keys(this.clientesFrm.controls).forEach((campo) => {
+        const controle = this.clientesFrm.controls[campo];
+        controle.markAsTouched();
+      });
+      this.mostrarMensagem('Por favor, preencha todos os campos obrigatórios!');
+      return; 
+    }
+    const clienteComMesmoEmail = this.clienteService.buscarClientePorEmail(this.cliente.email!);
+    if (clienteComMesmoEmail) {
+      if (this.atualizando && clienteComMesmoEmail.id === this.cliente.id) {
+      } else {
+        this.mostrarMensagem('Este email já está cadastrado para outro cliente!');
+        return;
+      }
+    }
     if (!this.atualizando) {
       this.clienteService.salvar(this.cliente);
       this.cliente = Cliente.newCliente();
-      this.router.navigate(['/consulta']);
+      this.clientesFrm.resetForm();
+      this.cidades = [];
       this.mostrarMensagem('Cliente cadastrado com sucesso!');
+      this.router.navigate(['/consulta']);
     } else {
       this.clienteService.atualizar(this.cliente);
       this.router.navigate(['/consulta']);
@@ -153,20 +172,15 @@ export class Cadastro implements OnInit {
   }
 
   limpar() {
-    this.cliente.nome = '';
-    this.cliente.email = '';
-    this.cliente.cpf = '';
-    this.cliente.dataNascimento = '';
-    this.cliente.cep = '';
-    this.cliente.estado = '';
-    this.cliente.cidade = '';
-    this.cliente.bairro = '';
-    this.cliente.rua = '';
-    this.cliente.complemento = '';
-    this.cidades = [];
+    this.clientesFrm.resetForm();
   }
 
   mostrarMensagem(mensagem: string) {
     this.snack.open(mensagem, 'OK', { duration: 3000 });
+  }
+
+  verificaEmailJaCadastrado(email: string): boolean {
+    if (this.clienteService.buscarClientePorEmail(email)) return true;
+    return false;
   }
 }
