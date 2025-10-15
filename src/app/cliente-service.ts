@@ -56,7 +56,6 @@ export class ClienteService {
   deletar(id: string) {
     const clientes = this.obterStorage();
     const novaLista = clientes.filter((cliente) => cliente.id !== id);
-
     localStorage.setItem(ClienteService.REPO_CLIENTES, JSON.stringify(novaLista));
   }
 }
