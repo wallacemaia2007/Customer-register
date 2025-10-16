@@ -31,6 +31,7 @@ export class Informacoes implements OnInit {
     'cpf',
     'email',
     'cep',
+    'telefone',
     'estado',
     'cidade',
     'bairro',

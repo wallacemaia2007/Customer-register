@@ -7,6 +7,7 @@ export class Cliente {
   dataNascimento?: string;
   email?: string;
   cep?: string;
+  telefone?: string;
   estado?: string;
   cidade?: string;
   bairro?: string;
