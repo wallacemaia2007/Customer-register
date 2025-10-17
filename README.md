@@ -1,89 +1,71 @@
 # 📋 Sistema de Cadastro de Clientes
 
-Sistema web desenvolvido em Angular para gerenciamento de cadastro de clientes com integração à BrasilAPI para dados de localização.
+Sistema web moderno para gerenciamento completo de cadastro de clientes, desenvolvido com Angular e integrado à BrasilAPI para validação automática de localização.
 
+## 🚀 Tecnologias
 
+### Core
+- **Angular 19** - Framework JavaScript progressivo com arquitetura standalone components
+- **TypeScript** - Superset JavaScript com tipagem estática
+- **Angular Material** - Biblioteca de componentes UI baseada em Material Design
+- **RxJS** - Biblioteca para programação reativa com Observables
 
-## 🚀 Tecnologias Utilizadas
+### Recursos Avançados
+- **SSR (Server-Side Rendering)** - Renderização no servidor com Angular Universal
+- **Angular Flex Layout** - Sistema de layout flexível e responsivo
+- **Reactive Forms** - Validação e manipulação de formulários com two-way binding
+- **Routing** - Sistema de navegação SPA (Single Page Application)
 
-### Frontend
+### Integrações e Bibliotecas
+- **BrasilAPI** - Integração para dados oficiais de CEP, estados e municípios
+- **UUID (v4)** - Geração de identificadores únicos universais
+- **ngx-mask** - Máscaras para formatação de CPF, telefone e data
+- **LocalStorage API** - Persistência de dados no navegador
 
-- **Angular 19+** - Framework principal
-- **TypeScript** - Linguagem de programação
-- **Angular Material** - Biblioteca de componentes UI
-- **Angular Flex Layout** - Sistema de layout responsivo
-- **RxJS** - Programação reativa
+## ✨ Funcionalidades
 
-### Funcionalidades Técnicas
+- ✅ Cadastro completo de clientes com validação de campos
+- 🔍 Busca e filtro de clientes por nome
+- ✏️ Edição e atualização de registros
+- 🗑️ Exclusão de clientes com confirmação
+- 📍 Busca automática de endereço via CEP
+- 🌎 Seleção de estado e município com dados da BrasilAPI
+- 💾 Armazenamento local persistente
+- 📱 Interface responsiva e moderna
 
-- **SSR (Server-Side Rendering)** - Renderização no servidor com Angular SSR
-- **Standalone Components** - Arquitetura moderna do Angular
-- **Reactive Forms** - Template-driven forms com two-way binding
-- **Routing** - Navegação entre páginas
-- **LocalStorage** - Persistência de dados no navegador
-- **HTTP Client** - Requisições para APIs externas
-
-### APIs e Integrações
-
-- **BrasilAPI** - Integração para dados de estados e municípios brasileiros
-- **UUID (v4)** - Geração de identificadores únicos
-- **ngx-mask** - Máscaras para CPF e data de nascimento
-
-## 📦 Funcionalidades
-
-- ✅ Cadastro completo de clientes (nome, email, CPF, data de nascimento, estado e município)
-- 🔍 Busca e consulta de clientes por nome
-- ✏️ Edição de dados cadastrados
-- 🗑️ Exclusão de registros
-- 📍 Seleção de estado e município integrada com BrasilAPI
-- 💾 Persistência local dos dados (LocalStorage)
-- 🎨 Interface moderna com Angular Material
-
-## 🛠️ Estrutura do Projeto
+## 🛠️ Arquitetura
 
 ```
 src/app/
-├── cadastro/          # Módulo de cadastro de clientes
-├── consulta/          # Módulo de consulta e listagem
-├── home/              # Página inicial
-├── brasilapi-service  # Serviço de integração com BrasilAPI
-├── cliente-service    # Serviço de gerenciamento de clientes
-└── app.routes         # Configuração de rotas
+├── cadastro/              # Módulo de cadastro/edição
+│   ├── cadastro.ts       # Component principal
+│   └── cliente.ts        # Model de dados
+├── consulta/              # Módulo de listagem e busca
+├── informacoes/           # Detalhes completos do cliente
+├── home/                  # Página inicial
+├── brasilapi-service.ts   # Serviço de integração API
+├── cliente-service.ts     # Lógica de negócio
+└── app.routes.ts         # Configuração de rotas
 ```
 
-## 🎯 Competências Demonstradas
+## 🎯 Destaques Técnicos
 
-### Angular
+**Angular Moderno**
+- Standalone Components (sem NgModules)
+- Signals para reatividade
+- Injeção de dependências
+- Lifecycle hooks otimizados
 
-- Componentes standalone
-- Services com injeção de dependência
-- Reactive programming com Observables
-- Roteamento e navegação
-- Template-driven forms
-- Two-way data binding
-- Lifecycle hooks (OnInit)
-- Query parameters
+**Boas Práticas**
+- Separação de responsabilidades (Services, Components, Models)
+- Componentes reutilizáveis e modulares
+- Validação completa de formulários
+- Tratamento de erros com feedback visual
 
-### TypeScript
-
-- Tipagem estática
-- Interfaces e classes
-- Métodos estáticos
-- Optional chaining
-
-### Arquitetura
-
-- Separação de responsabilidades (Components, Services, Models)
-- Organização modular do código
-- Padrão de Service para lógica de negócio
-- Componentização reutilizável
-
-### UX/UI
-
-- Design responsivo
-- Feedback visual (Snackbar)
-- Validação de formulários
-- Máscaras de input
+**UX/UI**
+- Design responsivo mobile-first
+- Feedback instantâneo com Snackbar
+- Máscaras de entrada intuitivas
 - Confirmação de ações destrutivas
 
 ## 🔧 Como Executar
@@ -92,10 +74,11 @@ src/app/
 # Instalar dependências
 npm install
 
-# Executar em desenvolvimento
+# Desenvolvimento
 npm start
+# Acesse http://localhost:4200
 
-# Build para produção
+# Build de produção
 npm run build
 
 # Executar com SSR
@@ -104,47 +87,40 @@ npm run serve:ssr:customer-register
 
 ## 📱 Páginas
 
-- **Home** (`/home`) - Página inicial com apresentação do sistema
-- **Cadastro** (`/cadastro`) - Formulário de cadastro/edição de clientes
-- **Consulta** (`/consulta`) - Listagem e busca de clientes
+- **`/home`** - Landing page com apresentação do sistema
+- **`/cadastro`** - Formulário de cadastro e edição
+- **`/consulta`** - Listagem e busca de clientes
+- **`/informacoes`** - Visualização detalhada do cliente
 
----
-
-## 📸 Screenshots
+## 📸 Demonstração
 
 ### 🏠 Página Inicial
-
-<div >
-
 <div align="center">
   <img src="./assets/home.jpg" alt="Página Inicial" width="800px"/>
 </div>
 
----
-
 ### 📝 Formulário de Cadastro
-
 <div align="center">
   <img src="./assets/cadastro.jpg" alt="Formulário de Cadastro" width="800px"/>
 </div>
 
----
-
 ### 🔍 Consulta de Clientes
-
 <div align="center">
   <img src="./assets/consulta.jpg" alt="Consulta de Clientes" width="800px"/>
 </div>
+
+### 🔍 Informações do Cliente
+<div align="center">
+  <img src="./assets/informacoes_cliente.jpg" alt="Consulta de Clientes" width="800px"/>
 </div>
 
-
-## 👨‍💻 Autor
+## 👨‍💻 Desenvolvedor
 
 <div align="center">
   <img src="https://github.com/wallacemaia2007.png" width="100px" style="border-radius: 50%;" alt="Wallace Maia"/>
   
   **Wallace Maia**  
-  *Desenvolvedor Full Stack Java/Angular*
+  *Full Stack Developer | Java • Angular • Spring Boot*
   
   [![LinkedIn](https://img.shields.io/badge/-LinkedIn-0A66C2?style=flat&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/wallacemaia-dev/)
   [![GitHub](https://img.shields.io/badge/-GitHub-181717?style=flat&logo=github&logoColor=white)](https://github.com/wallacemaia2007)
@@ -153,4 +129,8 @@ npm run serve:ssr:customer-register
 
 ---
 
-**Nota**: Este projeto utiliza LocalStorage para persistência de dados. Em produção, recomenda-se integração com API backend e banco de dados.
+<div align="center">
+  
+**⚠️ Nota**: Este projeto utiliza LocalStorage para fins de demonstração. Para ambientes de produção, recomenda-se integração com API REST e banco de dados.
+
+</div>
